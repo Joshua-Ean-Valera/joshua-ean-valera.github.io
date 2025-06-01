@@ -8,49 +8,84 @@
     body {
       font-family: 'Segoe UI', Arial, sans-serif;
       margin: 0;
-      background: #f4f4f4;
-      color: #222;
+      background: #181818; /* matte black */
+      color: #eee;
     }
     header {
-      background: #222;
-      color: #fff;
+      background: #181818;
+      color: #eee;
       padding: 2rem 1rem 1rem 1rem;
       text-align: center;
+      position: relative;
     }
-    header .subtitle {
+    .profile-row {
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+    .profile-pic {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #4a90e2;
+      background: #232323;
+      margin-top: 1.5rem;
+      cursor: pointer;
+      transition: box-shadow 0.2s;
+      box-shadow: 0 2px 12px rgba(74,144,226,0.10);
+    }
+    .profile-pic:hover {
+      box-shadow: 0 4px 24px rgba(74,144,226,0.25);
+    }
+    .subtitle {
       font-size: 1.2rem;
       color: #b3b3b3;
     }
-    nav {
-      margin-top: 1rem;
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 3.5rem;
+      max-width: 900px;
+      margin: 3rem auto 0 auto;
+      padding: 0 3rem;
+      background: none;
+      border: none;
+      box-shadow: none;
     }
-    nav a {
-      color: #fff;
-      margin: 0 1rem;
+    .menu-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #181818;
+      color: #eee;
+      font-size: 2.2rem;
+      font-weight: 600;
+      border: 2.5px solid #4a90e2;
+      border-radius: 18px;
+      padding: 6rem 1rem;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s, border-color 0.2s;
+      box-shadow: none;
       text-decoration: none;
-      font-weight: 500;
+      outline: none;
     }
-    nav a:hover {
-      text-decoration: underline;
-    }
-    main {
-      max-width: 800px;
-      margin: 2rem auto;
-      background: #fff;
-      padding: 2rem;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-    }
-    section {
-      margin-bottom: 2rem;
+    .menu-btn:hover, .menu-btn:focus {
+      background: #232323;
+      color: #fff;
+      border-color: #fff;
+      transform: translateY(-2px) scale(1.03);
     }
     h2 {
-      color: #2d6cdf;
+      color: #4a90e2;
       margin-bottom: 0.5rem;
     }
     ul {
       list-style: disc inside;
       padding-left: 1rem;
+      color: #eee;
     }
     #projects-list {
       display: grid;
@@ -58,55 +93,115 @@
       gap: 1rem;
     }
     .project-card {
-      background: #f9f9f9;
+      background: #232323;
+      color: #eee;
       border-radius: 6px;
       padding: 1rem;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
     }
     footer {
       text-align: center;
       padding: 1rem;
-      background: #222;
-      color: #fff;
+      background: #181818;
+      color: #b3b3b3;
       margin-top: 2rem;
       border-radius: 0 0 8px 8px;
+      /* Add the following to keep footer at the bottom */
+      position: fixed;
+      left: 0;
+      bottom: 0;
+      width: 100vw;
+      margin-top: 0;
+      border-radius: 0;
+    }
+    /* Modal styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0,0,0,0.4);
+    }
+    .modal .modal-content {
+      background: #181818;
+      color: #eee;
+      max-width: 400px;
+      margin: 10vh auto;
+      padding: 2rem;
+      border-radius: 8px;
+      position: relative;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.15);
+    }
+    .close-modal {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #eee;
     }
   </style>
 </head>
 <body>
   <header>
-    <h1>Joshua-Ean Valera</h1>
-    <p class="subtitle">Aspiring IT Professional</p>
-    <nav>
-      <a href="#about">About</a>
-      <a href="#skills">Skills</a>
-      <a href="#projects">Projects</a>
-      <a href="#contact">Contact</a>
-    </nav>
+    <div class="profile-row">
+      <img src="1660718350037.jpg" alt="Profile" class="profile-pic" id="profile-pic-main" />
+      <h1>Joshua Ean Valera</h1>
+    </div>
+    <p class="subtitle">Aspiring IT Professional / Network Engineer</p>
   </header>
-  <main>
-    <section id="about">
+  <div class="menu-grid">
+    <button class="menu-btn" id="about-link">About</button>
+    <button class="menu-btn" id="skills-link">Skills</button>
+    <button class="menu-btn" id="projects-link">Projects</button>
+    <button class="menu-btn" id="contact-link">Contact</button>
+  </div>
+  <!-- Modals for navigation -->
+  <div id="about-modal" class="modal">
+    <div class="modal-content">
+      <button class="close-modal" data-modal="about-modal">&times;</button>
       <h2>About Me</h2>
       <p><!-- Add your introduction here --></p>
-    </section>
-    <section id="skills">
+    </div>
+  </div>
+  <div id="skills-modal" class="modal">
+    <div class="modal-content">
+      <button class="close-modal" data-modal="skills-modal">&times;</button>
       <h2>Skills</h2>
       <ul id="skills-list">
         <!-- Skills will be loaded by JavaScript -->
       </ul>
-    </section>
-    <section id="projects">
+    </div>
+  </div>
+  <div id="projects-modal" class="modal">
+    <div class="modal-content">
+      <button class="close-modal" data-modal="projects-modal">&times;</button>
       <h2>Projects</h2>
       <div id="projects-list">
         <!-- Projects will be loaded by JavaScript -->
       </div>
-    </section>
-    <section id="contact">
+    </div>
+  </div>
+  <div id="contact-modal" class="modal">
+    <div class="modal-content">
+      <button class="close-modal" data-modal="contact-modal">&times;</button>
       <h2>Contact</h2>
       <p>Email: <span id="email">your.email@example.com</span></p>
       <!-- Add more contact info as needed -->
-    </section>
-  </main>
+    </div>
+  </div>
+  <!-- Profile Picture Modal -->
+  <div id="profile-pic-modal" class="modal">
+    <div class="modal-content" style="background:transparent; box-shadow:none; max-width:none; padding:0; display:flex; justify-content:center; align-items:center;">
+      <button class="close-modal" data-modal="profile-pic-modal" style="color:#fff; background:rgba(0,0,0,0.6); border-radius:50%; width:2.5rem; height:2.5rem; top:1.5rem; right:1.5rem; z-index:2; position:absolute;">&times;</button>
+      <img src="1660718350037.jpg" alt="Profile Large" style="max-width:90vw; max-height:80vh; border-radius:20px; box-shadow:0 8px 48px rgba(0,0,0,0.7);" />
+    </div>
+  </div>
   <footer>
     <p>&copy; 2024 Joshua-Ean Valera</p>
   </footer>
@@ -143,6 +238,59 @@
         <p>${project.description}</p>
         <a href="${project.link}">View Project</a>`;
       projectsList.appendChild(div);
+    });
+    // Modal logic for all nav links
+    function showModal(modalId) {
+      document.getElementById(modalId).style.display = 'block';
+    }
+    function hideModal(modalId) {
+      document.getElementById(modalId).style.display = 'none';
+    }
+
+    document.getElementById('about-link').addEventListener('click', function(e) {
+      e.preventDefault();
+      showModal('about-modal');
+    });
+    document.getElementById('skills-link').addEventListener('click', function(e) {
+      e.preventDefault();
+      showModal('skills-modal');
+    });
+    document.getElementById('projects-link').addEventListener('click', function(e) {
+      e.preventDefault();
+      showModal('projects-modal');
+    });
+    document.getElementById('contact-link').addEventListener('click', function(e) {
+      e.preventDefault();
+      showModal('contact-modal');
+    });
+
+    // Close buttons for all modals
+    document.querySelectorAll('.close-modal').forEach(btn => {
+      btn.addEventListener('click', function() {
+        hideModal(this.getAttribute('data-modal'));
+      });
+    });
+
+    // Close modal when clicking outside modal content
+    document.querySelectorAll('.modal').forEach(modal => {
+      modal.addEventListener('click', function(e) {
+        if (e.target === modal) {
+          modal.style.display = 'none';
+        }
+      });
+    });
+
+    // Profile picture modal logic
+    document.getElementById('profile-pic-main').addEventListener('click', function() {
+      document.getElementById('profile-pic-modal').style.display = 'block';
+    });
+    document.querySelector('#profile-pic-modal .close-modal').addEventListener('click', function() {
+      document.getElementById('profile-pic-modal').style.display = 'none';
+    });
+    document.getElementById('profile-pic-modal').addEventListener('click', function(e) {
+      if (e.target === this) {
+        this.style.display = 'none';
+      }
     });
   </script>
 </body>
